@@ -1,0 +1,10 @@
+# 图片占位目录
+
+请将 README 中标注的截图按路径放入本目录，例如：
+
+- `docs/images/fig-01-system-modules.png`
+- `docs/images/fig-02-official-model-cards.png`
+
+即可在 README 中正常渲染。
+
+

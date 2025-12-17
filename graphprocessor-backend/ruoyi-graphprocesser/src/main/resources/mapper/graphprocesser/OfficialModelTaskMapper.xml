@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.graphprocesser.mapper.OfficialModelTaskMapper">
+    
+    <resultMap type="OfficialModelTask" id="OfficialModelTaskResult">
+        <result property="id"    column="id"    />
+        <result property="officialModelId"    column="official_model_id"    />
+        <result property="datasetType"    column="dataset_type"    />
+        <result property="datasetName"    column="dataset_name"    />
+        <result property="datasetPath"    column="dataset_path"    />
+        <result property="parameters"    column="parameters"    />
+        <result property="userId"    column="user_id"    />
+        <result property="status"    column="status"    />
+        <result property="execMessage"    column="exec_message"    />
+        <result property="resultId"    column="result_id"    />
+        <result property="resultPath"    column="result_path"    />
+        <result property="imgPath"    column="img_path"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectOfficialModelTaskVo">
+        select id, official_model_id, dataset_type, dataset_name, dataset_path, parameters, user_id, status, exec_message, result_id, result_path, img_path, create_by, create_time, update_by, update_time, remark from tb_official_model_task
+    </sql>
+
+    <select id="selectOfficialModelTaskList" parameterType="OfficialModelTask" resultMap="OfficialModelTaskResult">
+        <include refid="selectOfficialModelTaskVo"/>
+        <where>  
+            <if test="officialModelId != null "> and official_model_id = #{officialModelId}</if>
+            <if test="datasetType != null "> and dataset_type = #{datasetType}</if>
+            <if test="datasetName != null  and datasetName != ''"> and dataset_name like concat('%', #{datasetName}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectOfficialModelTaskById" parameterType="Long" resultMap="OfficialModelTaskResult">
+        select id, official_model_id, dataset_type, dataset_name, dataset_path, parameters, user_id, status, exec_message, result_id, result_path, img_path, create_by, create_time, update_by, update_time, remark from tb_official_model_task
+        where id = #{id}
+    </select>
+
+    <insert id="insertOfficialModelTask" parameterType="OfficialModelTask" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_official_model_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="officialModelId != null">official_model_id,</if>
+            <if test="datasetType != null">dataset_type,</if>
+            <if test="datasetName != null">dataset_name,</if>
+            <if test="datasetPath != null">dataset_path,</if>
+            <if test="parameters != null">parameters,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="status != null">status,</if>
+            <if test="execMessage != null">exec_message,</if>
+            <if test="resultId != null">result_id,</if>
+            <if test="resultPath != null">result_path,</if>
+            <if test="imgPath != null">img_path,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="officialModelId != null">#{officialModelId},</if>
+            <if test="datasetType != null">#{datasetType},</if>
+            <if test="datasetName != null">#{datasetName},</if>
+            <if test="datasetPath != null">#{datasetPath},</if>
+            <if test="parameters != null">#{parameters},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="execMessage != null">#{execMessage},</if>
+            <if test="resultId != null">#{resultId},</if>
+            <if test="resultPath != null">#{resultPath},</if>
+            <if test="imgPath != null">#{imgPath},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOfficialModelTask" parameterType="OfficialModelTask">
+        update tb_official_model_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="officialModelId != null">official_model_id = #{officialModelId},</if>
+            <if test="datasetType != null">dataset_type = #{datasetType},</if>
+            <if test="datasetName != null">dataset_name = #{datasetName},</if>
+            <if test="datasetPath != null">dataset_path = #{datasetPath},</if>
+            <if test="parameters != null">parameters = #{parameters},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="execMessage != null">exec_message = #{execMessage},</if>
+            <if test="resultId != null">result_id = #{resultId},</if>
+            <if test="resultPath != null">result_path = #{resultPath},</if>
+            <if test="imgPath != null">img_path = #{imgPath},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOfficialModelTaskById" parameterType="Long">
+        delete from tb_official_model_task where id = #{id}
+    </delete>
+
+    <delete id="deleteOfficialModelTaskByIds" parameterType="String">
+        delete from tb_official_model_task where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

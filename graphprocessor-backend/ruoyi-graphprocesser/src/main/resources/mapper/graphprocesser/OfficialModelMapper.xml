@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.graphprocesser.mapper.OfficialModelMapper">
+    
+    <resultMap type="OfficialModel" id="OfficialModelResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="type"    column="type"    />
+        <result property="tags"    column="tags"    />
+        <result property="subtask"    column="subtask"    />
+        <result property="shortDescription"    column="short_description"    />
+        <result property="detailedDescription"    column="detailed_description"    />
+        <result property="modelImgPath"    column="model_img_path"    />
+        <result property="codePath"    column="code_path"    />
+        <result property="parameters"    column="parameters"    />
+        <result property="datasets"    column="datasets"    />
+        <result property="requiredFiles"    column="required_files"    />
+        <result property="datasetsDescription"    column="datasets_description"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectOfficialModelVo">
+        select id, name, type, tags, subtask, short_description, detailed_description, model_img_path, code_path, parameters, datasets, required_files, datasets_description, create_by, create_time, update_by, update_time, remark from tb_official_model
+    </sql>
+
+    <select id="selectOfficialModelList" parameterType="OfficialModel" resultMap="OfficialModelResult">
+        <include refid="selectOfficialModelVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="subtask != null  and subtask != ''"> and subtask like concat('%', #{subtask}, '%')</if>
+            <if test="datasets != null  and datasets != ''"> and datasets like concat('%', #{datasets}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectOfficialModelById" parameterType="Long" resultMap="OfficialModelResult">
+        <include refid="selectOfficialModelVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOfficialModel" parameterType="OfficialModel" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_official_model
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="type != null">type,</if>
+            <if test="tags != null">tags,</if>
+            <if test="subtask != null and subtask != ''">subtask,</if>
+            <if test="shortDescription != null">short_description,</if>
+            <if test="detailedDescription != null">detailed_description,</if>
+            <if test="modelImgPath != null">model_img_path,</if>
+            <if test="codePath != null and codePath != ''">code_path,</if>
+            <if test="parameters != null">parameters,</if>
+            <if test="datasets != null and datasets != ''">datasets,</if>
+            <if test="requiredFiles != null">required_files,</if>
+            <if test="datasetsDescription != null">datasets_description,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="tags != null">#{tags},</if>
+            <if test="subtask != null and subtask != ''">#{subtask},</if>
+            <if test="shortDescription != null">#{shortDescription},</if>
+            <if test="detailedDescription != null">#{detailedDescription},</if>
+            <if test="modelImgPath != null">#{modelImgPath},</if>
+            <if test="codePath != null and codePath != ''">#{codePath},</if>
+            <if test="parameters != null">#{parameters},</if>
+            <if test="datasets != null and datasets != ''">#{datasets},</if>
+            <if test="requiredFiles != null">#{requiredFiles},</if>
+            <if test="datasetsDescription != null">#{datasetsDescription},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOfficialModel" parameterType="OfficialModel">
+        update tb_official_model
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="tags != null">tags = #{tags},</if>
+            <if test="subtask != null and subtask != ''">subtask = #{subtask},</if>
+            <if test="shortDescription != null">short_description = #{shortDescription},</if>
+            <if test="detailedDescription != null">detailed_description = #{detailedDescription},</if>
+            <if test="modelImgPath != null">model_img_path = #{modelImgPath},</if>
+            <if test="codePath != null and codePath != ''">code_path = #{codePath},</if>
+            <if test="parameters != null">parameters = #{parameters},</if>
+            <if test="datasets != null and datasets != ''">datasets = #{datasets},</if>
+            <if test="requiredFiles != null">required_files = #{requiredFiles},</if>
+            <if test="datasetsDescription != null">datasets_description = #{datasetsDescription},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOfficialModelById" parameterType="Long">
+        delete from tb_official_model where id = #{id}
+    </delete>
+
+    <delete id="deleteOfficialModelByIds" parameterType="String">
+        delete from tb_official_model where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
